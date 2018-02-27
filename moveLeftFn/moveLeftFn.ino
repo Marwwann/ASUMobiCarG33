@@ -10,7 +10,6 @@ void left(){
   digitalWrite(RM2,LOW);
 
 }
-}
 void setup() {
   // put your setup code here, to run once:
   pinMode(LM1,OUTPUT);
