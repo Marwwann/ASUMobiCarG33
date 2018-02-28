@@ -11,9 +11,9 @@ void setup() {
 }
 void right ()
 {
-  digitalWrite(LM1,LOW);
-  digitalWrite(LM2,LOW);
-  digitalWrite(RM1,HIGH);
+  digitalWrite(LM1,HIGH);
+  digitalWrite(LM2,HIGH);
+  digitalWrite(RM1,LOW);
   digitalWrite(RM2,LOW);
   }
 
