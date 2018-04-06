@@ -97,11 +97,11 @@ void left()
       }
      if (leftstate==0 && rightstate==1)
     { 
-       left();
+       right();
       }
      if (leftstate==1 && rightstate==0)
     { 
-       right();
+       left();
       }
      if (leftstate==0 && rightstate==0)
     { 
