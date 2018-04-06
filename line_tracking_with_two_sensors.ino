@@ -93,7 +93,7 @@ void left()
     int rightstate=digitalRead(RS);
     if (leftstate==1 && rightstate==1)
     { 
-      forward();
+      Stop();
       }
      if (leftstate==0 && rightstate==1)
     { 
@@ -105,7 +105,7 @@ void left()
       }
      if (leftstate==0 && rightstate==0)
     { 
-       Stop();
+       forward();
       }
     }
 void loop() {
