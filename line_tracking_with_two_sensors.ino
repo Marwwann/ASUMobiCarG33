@@ -156,7 +156,7 @@ void loop() {
       {
         leftbackward();
       }
-      if (buttonstate==HIGH)
+      if (buttonstate==LOW)
       {
         linetrack();
       }
