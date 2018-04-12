@@ -5,8 +5,6 @@ int IN_3=6; //right motor
 int IN_4=7; //right motor
 int LS=2;   //left sensor
 int RS=3;   //right sensor
-int button=8;
-int buttonstate;
 int TriggerPin=13;
 int EchoPin=12;
 long duration , distance;
@@ -19,7 +17,6 @@ void setup() {
  pinMode(EchoPin,INPUT);
  pinMode(LS,INPUT);
  pinMode(RS,INPUT);
- pinMode(button, INPUT);
  Serial.begin(9600);
 }
 
@@ -156,7 +153,7 @@ void loop() {
       {
         leftbackward();
       }
-      if (buttonstate==LOW)
+      if (state=='W')
       {
         linetrack();
       }
