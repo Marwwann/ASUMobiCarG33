@@ -94,7 +94,7 @@ void left()
   { 
     int leftstate=digitalRead(LS);
     int rightstate=digitalRead(RS);
-    if (leftstate==1 && rightstate==1)
+    if (leftstate==0 && rightstate==0)
     { 
       Stop();
       }
@@ -106,7 +106,7 @@ void left()
     { 
        left();
       }
-     if (leftstate==0 && rightstate==0)
+     if (leftstate==1 && rightstate==1)
     { 
        forward();
       }
