@@ -158,18 +158,26 @@ void loop() {
       {
         leftstate=digitalRead(LS);
         rightstate=digitalRead(RS);
-      if (leftstate==0 && rightstate==0)
+      if (leftstate==0 && rightstate==0){
        Stop();
-      
-      if (leftstate==0 && rightstate==1)     
+       if (state=='U')
+       break; 
+      }
+       if (leftstate==0 && rightstate==1){     
        left();
-      
-      if (leftstate==1 && rightstate==0)
+      if (state=='U')
+       break;
+      }
+      if (leftstate==1 && rightstate==0){
        right();
-  
-     if (leftstate==1 && rightstate==1)
+  if (state=='U')
+       break;
+      }
+     if (leftstate==1 && rightstate==1){
        forward();
-      
+      if (state=='U')
+       break;
+     }
       }
       digitalWrite(TriggerPin,LOW);
  delayMicroseconds(2);
