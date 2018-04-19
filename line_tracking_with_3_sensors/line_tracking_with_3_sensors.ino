@@ -167,17 +167,17 @@ void loop() {
        if (state=='U')
        break; 
       } */
-       if (leftstate==0 && centerstate==1 && rightstate==1){     
+       if (leftstate==0 && centerstate==0 && rightstate==1){     
        right();
       if (state=='U')
        break;
       }
-      if (leftstate==1 && centerstate==1 && rightstate==0){
+      if (leftstate==1 && centerstate==0 && rightstate==0){
        left();
   if (state=='U')
        break;
       }
-     if (leftstate==1 && centerstate==0 && rightstate==1 || leftstate==1 && centerstate==1 && rightstate==1 ){
+     if (leftstate==0 && centerstate==1 && rightstate==0 || leftstate==1 && centerstate==1 && rightstate==1 ){
        forward();
       if (state=='U')
        break;
