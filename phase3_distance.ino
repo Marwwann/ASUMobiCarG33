@@ -11,7 +11,7 @@ int IN_3=6; //right motor
 int IN_4=7; //right motor
 int pinA=2; //encoder input pin
 int slots = 24; //no of slots of optical encoder(equivalent to PPR)
-float wheel = 2*3.14*1.5; // wheel circumference
+float wheel = 21; // wheel circumference
 volatile unsigned int pulses=0;
 int revolutions;
 void setup() {
@@ -20,7 +20,7 @@ void setup() {
  pinMode(IN_3,OUTPUT);
  pinMode(IN_4,OUTPUT);
  pinMode(pinA,INPUT);
- attachInterrupt(0,counting,RISING);
+ attachInterrupt(digitalPinToInterrupt(pinA),counting,RISING);
  Serial.begin(9600);
 }
 
