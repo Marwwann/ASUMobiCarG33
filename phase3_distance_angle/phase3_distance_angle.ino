@@ -1,6 +1,7 @@
 char state;
  float linearDist;
- char dir;  // forward or backward distance
+ String dir1;
+  String dir2;// forward or backward distance
  String mode;
  String submode;
  String distance;
@@ -115,19 +116,23 @@ void loop() {
           }
 
           else {
-            dir = submode[0];
-            distance = submode.substring(1);
-            dist = distance.toFloat();
+            dir1 = submode.substring(0,6);
+            dir2 = submode.substring(0,7);
+            
             
             do
             {
-              if (dir = 'F')
+              if (dir1 = "Forward")
               {
-                forward(); 
+                forward();
+                distance = submode.substring(7);
+            dist = distance.toFloat(); 
                }
-              else if (dir = 'B')
+              else if (dir2 = "Backward")
                {
                  backward(); 
+                 distance = submode.substring(8);
+            dist = distance.toFloat();
                }
             revolutions = pulses/slots;
             linearDist = wheel*revolutions;
@@ -150,10 +155,10 @@ void loop() {
       do
       {
         right();
-        Count = attachInterrupt(digitalPinToInterrupt(pin),counting,RISING);
-        PulseReq = (Count * angle)/360;
+        Count= slots/360;
+        PulseReq= angle/Count;
       }
-      while(Count != PulseReq);
+      while(pulses != PulseReq);
      }
      
  
