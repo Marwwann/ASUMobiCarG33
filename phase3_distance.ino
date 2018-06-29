@@ -99,8 +99,8 @@ void left()
 void loop() {
   while(Serial.available()>0)
   {  
-     mode = Serial.read ();
-     submode= Serial.read ();   
+     mode = Serial.readString ();
+     submode= Serial.readString ();   
      if(mode=="accurate_driving")
      {
          if(submode=="shapes")
