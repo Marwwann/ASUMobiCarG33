@@ -5,17 +5,14 @@
  String submode;
  String distance;
  float dist = 10;
- float speed = 1; // cm per sec
- float time = dist /speed;
+ float speed = 1; // cm per sec , calculated practically 
+ float time = dist / speed;
+ int exit = 0;
 int IN_1=4; //left motor
 int IN_2=5; //left motor
 int IN_3=6; //right motor
 int IN_4=7; //right motor
-int pinA=2; //encoder input pin
-unsigned int slots = 20; //no of slots of optical encoder(equivalent to PPR)
-float wheel = 21; // wheel circumference
-volatile unsigned int pulses=0;
-unsigned int revolutions = 0;
+
 void setup() {
  pinMode(IN_1,OUTPUT);
  pinMode(IN_2,OUTPUT);
@@ -26,10 +23,6 @@ void setup() {
  Serial.begin(9600);
 }
 
-void counting()
-{
-  pulses++;
- }
 
 void left()
 {
@@ -98,36 +91,16 @@ void left()
   digitalWrite(IN_4,LOW);
   }
   
-void loop() {
-/*  while(Serial.available()>0)
-  {  
-     mode = Serial.read ();
-     submode= Serial.read();   
-         if(submode=="shapes")
-          {
-              //shapes
-          }
-          else { 
-            dir = submode[0];
-            distance = submode.substring(1);
-            dist = distance.toFloat(); */
+void loop() 
+{
+   while ( exit == 0 )
+  {
+   forward();
+   delay (time);  // if dist = 10 , speed = 1 , then car moves forward for 10 seconds then stops
+   Stop();
+   exit = 5;
+  } 
+
             
-            while(linearDist != dist)
-            {
-              
-                forward(); 
-               
-          /*    else if (dir = 'B')
-               {
-                 backward(); 
-               } */
-            revolutions = pulses/slots;
-            linearDist = wheel*revolutions;
-              }
-              
-          
-                Stop(); 
-               
-            
-            }
+ }
       
