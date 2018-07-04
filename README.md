@@ -1,5 +1,5 @@
 # ASUMobiCarG33
-This project is about designing and implementing a RC car wit various features.
+This project is about designing and implementing RC car with various features.
 
 Team Members:
 1) Marwan Mohamed
