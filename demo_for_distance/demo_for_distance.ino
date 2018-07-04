@@ -1,17 +1,19 @@
 char state;
- float linearDist;
+ float linearDist=0;
  String dir1;
   String dir2;// forward or backward distance
- String mode;
- String submode;
+ String mode="accurate_driving";
+ String submode="Forward30";
  String distance;
  float dist;
+ int EN_A=9;
+ int EN_B=10;
 int IN_1=4; //left motor
 int IN_2=5; //left motor
 int IN_3=6; //right motor
 int IN_4=7; //right motor
 int pinA=2; //encoder input pin
-int slots = 24; //no of slots of optical encoder(equivalent to PPR)
+int slots = 20; //no of slots of optical encoder(equivalent to PPR)
 float wheel = 21; // wheel circumference
 volatile unsigned int pulses=0;
 int revolutions;
@@ -26,6 +28,8 @@ void setup() {
  pinMode(IN_2,OUTPUT);
  pinMode(IN_3,OUTPUT);
  pinMode(IN_4,OUTPUT);
+ pinMode(EN_A,OUTPUT);
+ pinMode(EN_B,OUTPUT);
  pinMode(pinA,INPUT);
  attachInterrupt(digitalPinToInterrupt(pinA),counting,RISING);
  Serial.begin(9600);
@@ -36,64 +40,80 @@ void counting()
   pulses++;
  }
 
-void left()
+void left(int sped)
 {
   digitalWrite(IN_1,LOW);
   digitalWrite(IN_2,HIGH);
   digitalWrite(IN_3,HIGH);
   digitalWrite(IN_4,LOW);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
 
- void right()
+ void right(int sped)
 {
   digitalWrite(IN_1,HIGH);
   digitalWrite(IN_2,LOW);
   digitalWrite(IN_3,LOW);
   digitalWrite(IN_4,HIGH);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
 
-  void forward()
+  void forward(int sped)
 {
   digitalWrite(IN_1,HIGH);
   digitalWrite(IN_2,LOW);
   digitalWrite(IN_3,HIGH);
   digitalWrite(IN_4,LOW);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
-   void rightforward()
+   void rightforward(int sped)
 {
   digitalWrite(IN_1,HIGH);
   digitalWrite(IN_2,LOW);
   digitalWrite(IN_3,LOW);
   digitalWrite(IN_4,LOW);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
-   void rightbackward()
+   void rightbackward(int sped)
 {
   digitalWrite(IN_1,LOW);
   digitalWrite(IN_2,HIGH);
   digitalWrite(IN_3,HIGH);
   digitalWrite(IN_4,HIGH);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
-  void backward()
+  void backward(int sped)
   {
     digitalWrite(IN_1,LOW);
     digitalWrite(IN_2,HIGH);
     digitalWrite(IN_3,LOW);
     digitalWrite(IN_4,HIGH);
+    analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
 
-  void leftforward()
+  void leftforward(int sped)
 {
   digitalWrite(IN_1,LOW);
   digitalWrite(IN_2,LOW);
   digitalWrite(IN_3,HIGH);
   digitalWrite(IN_4,LOW);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
-  void leftbackward()
+  void leftbackward(int sped)
 {
   digitalWrite(IN_1,HIGH);
   digitalWrite(IN_2,HIGH);
   digitalWrite(IN_3,LOW);
   digitalWrite(IN_4,HIGH);
+  analogWrite(EN_A,sped);
+  analogWrite(EN_B,sped);
   }
    void Stop()
 {
@@ -104,11 +124,13 @@ void left()
   }
   
 void loop() {
-  while(Serial.available()>0)
+  forward(60);
+  Serial.println(pulses);
+  /*while(Serial.available()>0)
   {  
      mode = Serial.read ();
-     submode= Serial.read ();   
-     if(mode=="accurate_driving")
+     submode= Serial.read ();*/   
+     /*if(mode=="accurate_driving")
      {
          if(submode=="shapes")
           {
@@ -119,35 +141,36 @@ void loop() {
             dir1 = submode.substring(0,6);
             dir2 = submode.substring(0,7);
             
+            */
+           // while(1);
             
-            do
-            {
-              if (dir1 = "Forward")
-              {
-                forward();
-                distance = submode.substring(7);
-            dist = distance.toFloat(); 
-               }
-              else if (dir2 = "Backward")
+             // if (dir1 == "Forward")
+              //{
+                //forward(40);
+}            
+              //  distance = submode.substring(7);
+            //dist = distance.toFloat();
+            //dist=10; 
+               //}
+              /*else if (dir2 = "Backward")
                {
-                 backward(); 
+                 backward(60); 
                  distance = submode.substring(8);
             dist = distance.toFloat();
-               }
-            revolutions = pulses/slots;
+               }*/
+            /*revolutions = pulses/slots;
             linearDist = wheel*revolutions;
               }
-              while(linearDist!=dist);
-              if (linearDist==dist)
-              {
+              
+              
                 Stop(); 
-               }
+            }   
             
-            }
+            
       
               
      }
-     else if(mode == "angle")
+     /*else if(mode == "angle")
      {
       angleName = submode.substring(0);
       angle = angleName.toFloat();
@@ -159,11 +182,11 @@ void loop() {
         PulseReq= angle/Count;
       }
       while(pulses != PulseReq);
-     }
+     }*/
      
  
       
-    }
+    
  
 
-}
+
