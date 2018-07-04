@@ -113,96 +113,20 @@ void left()
       }
     }*/
 void loop() {
-  while(Serial.available()>0)
-  {
-    state=Serial.read();
-    
-    if (state=='L')
-    {
-     left();
-      }
-
-      if (state=='R')
-    {
-      right();
-      }
-
-      if (state=='G')
-    {
-      leftforward();
-      }
-
-     if(state=='F')
-     {
-      forward();
-     }
-     if (state=='B')
-     {
-      backward();
-     }
-
-      if (state=='S')
-    {
-       Stop();
-      }
-      if (state=='J')
-      {
-        rightbackward();
-      }
-      if (state=='I')
-      {
-        rightforward();
-      }
-      if (state=='H')
-      {
-        leftbackward();
-      }
-      while (state=='W')
-      {
+      
         leftstate=digitalRead(LS);
         rightstate=digitalRead(RS);
         centerstate=digitalRead(CS);
-     /* if (leftstate==1 && centerstate==1 rightstate==1){
-       Stop();    
-       if (state=='U')
-       break; 
-      } */
-       if (leftstate==0 && centerstate==0 && rightstate==1){     
-       right();
-      if (state=='U')
-       break;
-      }
-      if (leftstate==1 && centerstate==0 && rightstate==0){
-       left();
-  if (state=='U')
-       break;
-      }
-     if (leftstate==0 && centerstate==1 && rightstate==0 || leftstate==1 && centerstate==1 && rightstate==1 ){
-       forward();
-      if (state=='U')
-       break;
+     Serial.print (String(centerstate));
+      
+     if (leftstate==0 && centerstate==0 && rightstate==0 ){
+       rightforward();
+      
      }
-     /* if (leftstate==0 && centerstate=0 && rightstate==1){
-       right();
-      if (state=='U')    //sharp (acute and 90 degrees) turns 
-       break;
-     }
-      if (leftstate==1 && centerstate=0 && rightstate==0){
-       left();
-      if (state=='U')
-       break;
-     }*/
+     if (leftstate==1 && centerstate==1 && rightstate==1 )
+      {
+        forward();
       }
-      digitalWrite(TriggerPin,LOW);
- delayMicroseconds(2);
- digitalWrite(TriggerPin,HIGH);
- delayMicroseconds(10);
- digitalWrite(TriggerPin,LOW);
- duration= pulseIn(EchoPin,HIGH);
- distance = duration*0.034/2;
- if ( distance <= 10 )
- {
-  Stop();
- } 
-    }
+      delay(500);
+     
 }

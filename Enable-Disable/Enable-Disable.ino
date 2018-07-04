@@ -87,28 +87,6 @@ void left()
   digitalWrite(IN_3,LOW);
   digitalWrite(IN_4,LOW);
   }
-
-  /*void linetrack()
-  { 
-    leftstate=digitalRead(LS);
-    rightstate=digitalRead(RS);
-    if (leftstate==0 && rightstate==0)
-    { 
-      Stop();
-      }
-     if (leftstate==0 && rightstate==1)
-    { 
-       right();
-      }
-     if (leftstate==1 && rightstate==0)
-    { 
-       left();
-      }
-     if (leftstate==1 && rightstate==1)
-    { 
-       forward();
-      }
-    }*/
 void loop() {
   while(Serial.available()>0)
   {
@@ -125,58 +103,39 @@ void loop() {
       }
 
       if (state=='G')
-    {
       leftforward();
-      }
-
      if(state=='F')
-     {
       forward();
-     }
      if (state=='B')
-     {
       backward();
-     }
-
       if (state=='S')
-    {
        Stop();
-      }
       if (state=='J')
-      {
         rightbackward();
-      }
       if (state=='I')
-      {
         rightforward();
-      }
       if (state=='H')
-      {
         leftbackward();
-      }
       while (state=='W')
       {
         leftstate=digitalRead(LS);
         rightstate=digitalRead(RS);
       if (leftstate==0 && rightstate==0){
        Stop();
-       if (state=='U')
-       break; 
       }
        if (leftstate==0 && rightstate==1){     
        left();
-      if (state=='U')
-       break;
       }
       if (leftstate==1 && rightstate==0){
        right();
-  if (state=='U')
-       break;
       }
      if (leftstate==1 && rightstate==1){
        forward();
-      if (state=='U')
-       break;
+     }
+     state=Serial.read();
+     if (state='U')
+     {
+      break;
      }
       }
       digitalWrite(TriggerPin,LOW);

@@ -1,4 +1,4 @@
-char state;
+ char state;
 int IN_1=4; //left motor
 int IN_2=5; //left motor
 int IN_3=6; //right motor
@@ -90,6 +90,7 @@ void loop() {
     if (state=='L')
     {
      left();
+     
       }
 
       if (state=='R')
@@ -108,7 +109,7 @@ void loop() {
      }
      if (state=='B')
      {
-      backward();
+      backward();]
      }
 
       if (state=='S')
@@ -126,6 +127,7 @@ void loop() {
       if (state=='H')
       {
         leftbackward();
+        
       }
       
     }

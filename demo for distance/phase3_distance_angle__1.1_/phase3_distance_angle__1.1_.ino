@@ -1,4 +1,6 @@
-char state;
+#include <SoftwareSerial.h>
+SoftwareSerial x(11,12);
+int state =0;
  float linearDist=0;
  String dir1;
   String dir2;// forward or backward distance
@@ -14,6 +16,7 @@ int IN_3=6; //right motor
 int IN_4=7; //right motor
 int pinA=2; //encoder input pin
 int slots = 20; //no of slots of optical encoder(equivalent to PPR)
+bool flag=0;
 float wheel = 21; // wheel circumference
 volatile unsigned int pulses=0;
 int revolutions;
@@ -31,14 +34,8 @@ void setup() {
  pinMode(EN_A,OUTPUT);
  pinMode(EN_B,OUTPUT);
  pinMode(pinA,INPUT);
- attachInterrupt(digitalPinToInterrupt(pinA),counting,RISING);
  Serial.begin(9600);
 }
-
-void counting()
-{
-  pulses++;
- }
 
 void left(int sped)
 {
@@ -124,8 +121,51 @@ void left(int sped)
   }
   
 void loop() {
-  forward(60);
-  Serial.println(pulses);
+
+  x.begin(9600);
+if (x.available())
+{
+
+  state=x.read();
+  Serial.println(state);
+}
+if(state=='a')
+{
+  pulses=0;
+}
+else if(state=='f')
+{
+  if (digitalRead(pinA)==1&& flag==0)
+  {
+    if(pulses>=31)
+{
+   forward(25);
+}
+else if(pulses>=16&&pulses<=30)
+{
+    forward(40);
+}
+else if(pulses<=15)
+{
+    forward(80);
+}
+    pulses++;
+    delay(3);
+    flag=1;
+     Serial.println(pulses);
+  }
+
+  else if (digitalRead(pinA)==0&&flag==1)
+  {
+   flag=0; 
+  }
+  else if(pulses>=40)
+  {
+   Stop();
+  delay(10);
+  }
+  }
+  }
   /*while(Serial.available()>0)
   {  
      mode = Serial.read ();
@@ -146,8 +186,7 @@ void loop() {
             
              // if (dir1 == "Forward")
               //{
-                //forward(40);
-}            
+                //forward(40);        
               //  distance = submode.substring(7);
             //dist = distance.toFloat();
             //dist=10; 
